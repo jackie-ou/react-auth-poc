@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import RequireAuth from "./RequireAuth";
 import './App.css';
 
@@ -7,7 +8,21 @@ function Home() {
 }
 
 function Login() {
-  return <h1>Login</h1>;
+  // States
+  const navigate = useNavigate();
+  // Helper
+  const handleLogin = () => {
+    // TODO: add user object
+    setUser({ name: "User 1" });
+    navigate("/dashboard");
+  }
+
+  return (
+    <div>
+      <h1>Login</h1>
+      <button onClick={handleLogin}>Sign In</button>
+    </div>
+  );
 }
 
 function Dashboard() {
@@ -15,6 +30,9 @@ function Dashboard() {
 }
 
 export default function App() {
+  // States
+  const [user, setUser] = useState(null);
+
   return (
     <BrowserRouter>
       <nav className="routes">
@@ -25,7 +43,7 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/admin/dashboard" element={
           <RequireAuth>
             <Dashboard />
