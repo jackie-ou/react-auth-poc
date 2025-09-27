@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import RequireAuth from "./components/RequireAuth";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/NotFound";
 import "./styles/App.css";
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
               <Dashboard user={user} setUser={setUser} />
             </RequireAuth>
           } />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
