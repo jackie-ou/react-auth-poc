@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 
-
-export default function Dashboard({ user, setUser }) {
+export default function Settings({ user, setUser }) {
   // Router
   const navigate = useNavigate();
   // Helpers
@@ -12,8 +11,8 @@ export default function Dashboard({ user, setUser }) {
   };
 
   return (
-    <div className="dashboard">
-      <h1>Dashboard (protected)</h1>
+    <div className="settings">
+      <h1>Settings (protected)</h1>
       <p>Welcome, {user.name}!</p>
       <button onClick={handleLogout}>Sign Out</button>
     </div>
