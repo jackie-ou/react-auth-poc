@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import { ROUTES } from "./constants/routes";
 import "./styles/App.css";
 
 export default function App() {
@@ -14,16 +15,16 @@ export default function App() {
   return (
     <BrowserRouter>
       <nav className="routes">
-        <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/admin/dashboard">Dashboard</Link>
+        <Link to={ROUTES.HOME}>Home</Link>
+        <Link to={ROUTES.LOGIN}>Login</Link>
+        <Link to={ROUTES.DASHBOARD}>Dashboard</Link>
       </nav>
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path={ROUTES.HOME} element={<Home />} />
+        <Route path={ROUTES.LOGIN} element={<Login setUser={setUser} />} />
         <Route
-          path="/admin/dashboard"
+          path={ROUTES.DASHBOARD}
           element={
             <RequireAuth user={user}>
               <Dashboard user={user} setUser={setUser} />
