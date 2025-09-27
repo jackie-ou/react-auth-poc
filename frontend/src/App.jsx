@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import RequireAuth from "./RequireAuth";
 import './App.css';
 
 function Home() {
@@ -10,7 +11,7 @@ function Login() {
 }
 
 function Dashboard() {
-  return <h1>Dashboard (protected later)</h1>;
+  return <h1>Dashboard (protected)</h1>;
 }
 
 export default function App() {
@@ -25,7 +26,11 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/dashboard" element={
+          <RequireAuth>
+            <Dashboard />
+          </RequireAuth>
+        } />
       </Routes>
     </BrowserRouter>
   );
