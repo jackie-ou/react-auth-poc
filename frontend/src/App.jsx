@@ -1,45 +1,10 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
-import RequireAuth from "./RequireAuth";
-import './App.css';
-
-function Home() {
-  return <h1>Home (public)</h1>;
-}
-
-function Login({ setUser }) {
-  // States
-  const navigate = useNavigate();
-  // Helper
-  const handleLogin = () => {
-    // TODO: add user object
-    setUser({ name: "User 1" });
-    navigate("/admin/dashboard");
-  }
-
-  return (
-    <div>
-      <h1>Login</h1>
-      <button onClick={handleLogin}>Sign In</button>
-    </div>
-  );
-}
-
-function Dashboard({ user, setUser }) {
-  // Helper
-  const handleLogout = () => {
-    setUser(null);
-    navigate("/");
-  }
-
-  return (
-    <div>
-      <h1>Dashboard (protected)</h1>
-      <p>Welcome, {user.name}!</p>
-      <button onClick={handleLogout}>Sign Out</button>
-    </div>
-  )
-}
+import RequireAuth from "./components/RequireAuth";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import "./styles/App.css";
 
 export default function App() {
   // States
