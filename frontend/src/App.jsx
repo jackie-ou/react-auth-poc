@@ -7,14 +7,14 @@ function Home() {
   return <h1>Home (public)</h1>;
 }
 
-function Login() {
+function Login({ setUser }) {
   // States
   const navigate = useNavigate();
   // Helper
   const handleLogin = () => {
     // TODO: add user object
     setUser({ name: "User 1" });
-    navigate("/dashboard");
+    navigate("/admin/dashboard");
   }
 
   return (
@@ -25,8 +25,20 @@ function Login() {
   );
 }
 
-function Dashboard() {
-  return <h1>Dashboard (protected)</h1>;
+function Dashboard({ user, setUser }) {
+  // Helper
+  const handleLogout = () => {
+    setUser(null);
+    navigate("/");
+  }
+
+  return (
+    <div>
+      <h1>Dashboard (protected)</h1>
+      <p>Welcome, {user.name}!</p>
+      <button onClick={handleLogout}>Sign Out</button>
+    </div>
+  )
 }
 
 export default function App() {
@@ -44,11 +56,13 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
-        <Route path="/admin/dashboard" element={
-          <RequireAuth>
-            <Dashboard />
-          </RequireAuth>
-        } />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <RequireAuth user={user}>
+              <Dashboard user={user} setUser={setUser} />
+            </RequireAuth>
+          } />
       </Routes>
     </BrowserRouter>
   );
