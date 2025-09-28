@@ -1,7 +1,7 @@
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { ROUTES } from "../constants/routes"
+import { useHandleLogin } from "../utils/handleLogin";
 
-export default function Login({ user, setUser }) {
+export default function Login({ user }) {
   // Router
   const location = useLocation();
   const navigate = useNavigate();
@@ -10,17 +10,14 @@ export default function Login({ user, setUser }) {
     return <Navigate to={from} replace />
   }
 
-  // Helpers
-  const handleLogin = () => {
-    // TODO: add user object
-    setUser({ name: "User 1" });
-    navigate(from, { replace: true });
-  };
+  // Context
+  const login = useHandleLogin();
+  const userData = { name: "User 1" };
 
   return (
     <div className="login-page">
       <h1>Login</h1>
-      <button onClick={handleLogin}>Sign In</button>
+      <button onClick={() => login(userData, from)}>Sign In</button>
     </div>
   );
 }
