@@ -1,4 +1,3 @@
-import { useAuth } from "./context/AuthContext";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import RequireAuth from "./components/RequireAuth";
 import Home from "./pages/Home";
@@ -10,9 +9,6 @@ import { ROUTES } from "./constants/routes";
 import "./styles/App.css";
 
 export default function App() {
-  // States
-  const { user } = useAuth();
-
   return (
     <BrowserRouter>
       <nav className="routes">
@@ -24,19 +20,19 @@ export default function App() {
 
       <Routes>
         <Route path={ROUTES.HOME} element={<Home />} />
-        <Route path={ROUTES.LOGIN} element={<Login user={user} />} />
+        <Route path={ROUTES.LOGIN} element={<Login />} />
         <Route
           path={ROUTES.DASHBOARD}
           element={
-            <RequireAuth user={user}>
-              <Dashboard user={user} />
+            <RequireAuth>
+              <Dashboard />
             </RequireAuth>
           } />
         <Route
           path={ROUTES.SETTINGS}
           element={
-            <RequireAuth user={user}>
-              <Settings user={user} />
+            <RequireAuth>
+              <Settings />
             </RequireAuth>
           } />
         <Route path="*" element={<NotFound />} />

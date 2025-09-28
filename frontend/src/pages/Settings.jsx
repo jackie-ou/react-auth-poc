@@ -1,7 +1,9 @@
+import { useAuth } from "../context/AuthContext.jsx";
 import { useHandleLogout } from "../utils/handleLogout.jsx"
 
-export default function Settings({ user }) {
+export default function Settings() {
   // Context
+  const { user } = useAuth();
   const logout = useHandleLogout();
 
   return (

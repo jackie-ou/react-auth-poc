@@ -1,7 +1,10 @@
+import { useAuth } from "../context/AuthContext";
 import { Navigate, useLocation } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 
-function RequireAuth({ user, children }) {
+function RequireAuth({ children }) {
+  // Context
+  const { user } = useAuth();
   // Router
   const location = useLocation();
   // Unauthenticated

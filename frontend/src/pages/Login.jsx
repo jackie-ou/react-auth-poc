@@ -1,7 +1,10 @@
+import { useAuth } from "../context/AuthContext";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useHandleLogin } from "../utils/handleLogin";
 
-export default function Login({ user }) {
+export default function Login() {
+  // Context
+  const { user } = useAuth();
   // Router
   const location = useLocation();
   const navigate = useNavigate();
