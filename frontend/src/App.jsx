@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import RequireAuth from "./components/RequireAuth";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
+import NotFound from "./pages/NotFound";
+import { ROUTES } from "./constants/routes";
+import "./styles/App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  // States
+  const [user, setUser] = useState(null);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <BrowserRouter>
+      <nav className="routes">
+        <Link to={ROUTES.HOME}>Home</Link>
+        <Link to={ROUTES.LOGIN}>Login</Link>
+        <Link to={ROUTES.DASHBOARD}>Dashboard (protected)</Link>
+        <Link to={ROUTES.SETTINGS}>Settings (protected)</Link>
+      </nav>
 
-export default App
+      <Routes>
+        <Route path={ROUTES.HOME} element={<Home />} />
+        <Route path={ROUTES.LOGIN} element={<Login user={user} setUser={setUser} />} />
+        <Route
+          path={ROUTES.DASHBOARD}
+          element={
+            <RequireAuth user={user}>
+              <Dashboard user={user} setUser={setUser} />
+            </RequireAuth>
+          } />
+        <Route
+          path={ROUTES.SETTINGS}
+          element={
+            <RequireAuth user={user}>
+              <Settings user={user} setUser={setUser} />
+            </RequireAuth>
+          } />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
