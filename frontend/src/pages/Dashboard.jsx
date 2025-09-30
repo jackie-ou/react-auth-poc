@@ -1,21 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../constants/routes";
+import { useAuth } from "../context/AuthContext.jsx";
+import { useHandleLogout } from "../utils/handleLogout.jsx";
 
-
-export default function Dashboard({ user, setUser }) {
-  // Router
-  const navigate = useNavigate();
-  // Helpers
-  const handleLogout = () => {
-    setUser(null);
-    navigate(ROUTES.HOME);
-  };
+export default function Dashboard() {
+  // Context
+  const { user } = useAuth();
+  const logout = useHandleLogout();
 
   return (
     <div className="dashboard">
       <h1>Dashboard (protected)</h1>
       <p>Welcome, {user.name}!</p>
-      <button onClick={handleLogout}>Sign Out</button>
-    </div>
+      <button onClick={logout}>Sign Out</button>
+    </div >
   );
 }

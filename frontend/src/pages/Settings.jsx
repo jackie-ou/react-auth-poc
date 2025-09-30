@@ -1,20 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../constants/routes";
+import { useAuth } from "../context/AuthContext.jsx";
+import { useHandleLogout } from "../utils/handleLogout.jsx"
 
-export default function Settings({ user, setUser }) {
-  // Router
-  const navigate = useNavigate();
-  // Helpers
-  const handleLogout = () => {
-    setUser(null);
-    navigate(ROUTES.HOME);
-  };
+export default function Settings() {
+  // Context
+  const { user } = useAuth();
+  const logout = useHandleLogout();
 
   return (
     <div className="settings">
       <h1>Settings (protected)</h1>
       <p>Welcome, {user.name}!</p>
-      <button onClick={handleLogout}>Sign Out</button>
+      <button onClick={logout}>Sign Out</button>
     </div>
   );
 }
